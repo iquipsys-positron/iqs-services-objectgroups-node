@@ -14,7 +14,7 @@ import { ICommandable } from 'pip-services3-commons-node';
 import { CommandSet } from 'pip-services3-commons-node';
 import { NotFoundException } from 'pip-services3-commons-node';
 
-// import { IControlObjectsClientV1 } from 'iqs-clients-controlobjects-node';
+import { IControlObjectsClientV1 } from 'iqs-clients-controlobjects-node';
 import { IZonesClientV1 } from 'iqs-clients-zones-node';
 import { IEventRulesClientV1 } from 'iqs-clients-eventrules-node';
 
@@ -35,7 +35,7 @@ export class ObjectGroupsController implements  IConfigurable, IReferenceable, I
     );
 
     private _dependencyResolver: DependencyResolver = new DependencyResolver(ObjectGroupsController._defaultConfig);
-    // private _objectsClient: IControlObjectsClientV1;
+    private _objectsClient: IControlObjectsClientV1;
     private _objectsConnector: ControlObjectsConnector;
     private _zonesClient: IZonesClientV1;
     private _zonesConnector: ZonesConnector;
@@ -52,8 +52,8 @@ export class ObjectGroupsController implements  IConfigurable, IReferenceable, I
         this._dependencyResolver.setReferences(references);
         this._persistence = this._dependencyResolver.getOneRequired<IObjectGroupsPersistence>('persistence');
 
-        // this._objectsClient = this._dependencyResolver.getOneOptional<IControlObjectsClientV1>('control-objects');
-        this._objectsConnector = new ControlObjectsConnector(null); //this._objectsClient);
+        this._objectsClient = this._dependencyResolver.getOneOptional<IControlObjectsClientV1>('control-objects');
+        this._objectsConnector = new ControlObjectsConnector(this._objectsClient);
         this._zonesClient = this._dependencyResolver.getOneOptional<IZonesClientV1>('zones');
         this._zonesConnector = new ZonesConnector(this._zonesClient);
         this._eventRulesClient = this._dependencyResolver.getOneOptional<IEventRulesClientV1>('event-rules');

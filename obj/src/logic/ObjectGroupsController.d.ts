@@ -12,6 +12,7 @@ import { IObjectGroupsController } from './IObjectGroupsController';
 export declare class ObjectGroupsController implements IConfigurable, IReferenceable, ICommandable, IObjectGroupsController {
     private static _defaultConfig;
     private _dependencyResolver;
+    private _objectsClient;
     private _objectsConnector;
     private _zonesClient;
     private _zonesConnector;

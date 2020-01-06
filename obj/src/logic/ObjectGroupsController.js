@@ -19,8 +19,8 @@ class ObjectGroupsController {
     setReferences(references) {
         this._dependencyResolver.setReferences(references);
         this._persistence = this._dependencyResolver.getOneRequired('persistence');
-        // this._objectsClient = this._dependencyResolver.getOneOptional<IControlObjectsClientV1>('control-objects');
-        this._objectsConnector = new ControlObjectsConnector_1.ControlObjectsConnector(null); //this._objectsClient);
+        this._objectsClient = this._dependencyResolver.getOneOptional('control-objects');
+        this._objectsConnector = new ControlObjectsConnector_1.ControlObjectsConnector(this._objectsClient);
         this._zonesClient = this._dependencyResolver.getOneOptional('zones');
         this._zonesConnector = new ZonesConnector_1.ZonesConnector(this._zonesClient);
         this._eventRulesClient = this._dependencyResolver.getOneOptional('event-rules');
