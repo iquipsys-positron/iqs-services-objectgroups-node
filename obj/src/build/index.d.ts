@@ -1,0 +1,1 @@
+export { ObjectGroupsServiceFactory } from './ObjectGroupsServiceFactory';
